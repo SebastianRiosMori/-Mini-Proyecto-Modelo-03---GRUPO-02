@@ -1,69 +1,68 @@
-const form = document.getElementById('formulario');
-const nombre = document.getElementById('txtnombre');
-const precio = document.getElementById('txtprecio');
-const lista = document.getElementById('lstproductos');
-const error = document.getElementById('error');
+// Elementos del DOM
+const inputProducto = document.getElementById("productoInput");
+const btnAgregar = document.getElementById("agregarBtn");
+const lista = document.getElementById("listaProductos");
+
+let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
 let editando = false;
 let indexEditar = null;
 
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
-
+// Cargar productos en pantalla
 function cargarProductos() {
-    lista.innerHTML = "";
-    productos.forEach((product, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-        ${product.nom} - S/${product.pre.toFixed(2)}
-        <button class="btn btn-warning btn-sm me-2" onclick="editarProducto(${index})">Editar</button>
-        <button class="btn btn-danger btn-sm ms-2" onclick="eliminarProductos(${index})">Eliminar</button>
-        `;
-        lista.appendChild(li);
-    });
+  lista.innerHTML = "";
+  productos.forEach((producto, index) => {
+    const li = document.createElement("li");
+    li.classList.add("item-producto");
+    li.innerHTML = `
+      ${producto.nom}
+      <div class="acciones">
+        <button onclick="editarProducto(${index})">✏️</button>
+        <button onclick="eliminarProducto(${index})">🗑️</button>
+      </div>
+    `;
+    lista.appendChild(li);
+  });
 }
 
+// Guardar en localStorage
 function guardarLocal() {
-    localStorage.setItem("productos", JSON.stringify(productos));
+  localStorage.setItem("productos", JSON.stringify(productos));
 }
 
-function eliminarProductos(index) {
-    productos.splice(index, 1);
-    guardarLocal();
-    cargarProductos();
+// Eliminar producto
+function eliminarProducto(index) {
+  productos.splice(index, 1);
+  guardarLocal();
+  cargarProductos();
 }
 
-//Agregar productos:
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const nom = nombre.value.trim();
-    const pre = parseFloat(precio.value);
-    if (nom === "" || isNaN(pre) || pre <= 0) {
-        if (error) error.textContent = "Ingresa un nombre válido y un precio mayor a 0.";
-        return;
-    }
-    if (error) error.textContent = "";
-    if (editando) {
-        productos[indexEditar] = { nom, pre };
-        editando = false;
-        indexEditar = null;
-        document.getElementById("btnagregar").textContent = "Agregar";
-    } else {
-        productos.push({ nom, pre });
-    }
-    guardarLocal();
-    cargarProductos();
-    form.reset();
+// Editar producto
+function editarProducto(index) {
+  inputProducto.value = productos[index].nom;
+  editando = true;
+  indexEditar = index;
+  btnAgregar.textContent = "Guardar Cambios";
+}
+
+// Agregar o guardar producto
+btnAgregar.addEventListener("click", () => {
+  const nom = inputProducto.value.trim();
+  if (nom === "") return alert("Ingresa un nombre válido.");
+
+  if (editando) {
+    productos[indexEditar].nom = nom;
+    editando = false;
+    indexEditar = null;
+    btnAgregar.textContent = "Agregar";
+  } else {
+    productos.push({ nom });
+  }
+
+  guardarLocal();
+  cargarProductos();
+  inputProducto.value = "";
 });
 
-
-function editarProducto(index) {
-    const producto = productos[index];
-    nombre.value = producto.nom;
-    precio.value = producto.pre;
-    editando = true;
-    indexEditar = index;
-    document.getElementById("btnagregar").textContent = "Guardar Cambios";
-}
-
-
+// Cargar al inicio
 cargarProductos();
