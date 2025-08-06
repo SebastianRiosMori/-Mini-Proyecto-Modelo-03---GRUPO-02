@@ -30,20 +30,6 @@ function guardarLocal() {
   localStorage.setItem("productos", JSON.stringify(productos));
 }
 
-// Eliminar producto
-function eliminarProducto(index) {
-  productos.splice(index, 1);
-  guardarLocal();
-  cargarProductos();
-}
-
-// Editar producto
-function editarProducto(index) {
-  inputProducto.value = productos[index].nom;
-  editando = true;
-  indexEditar = index;
-  btnAgregar.textContent = "Guardar Cambios";
-}
 
 // Agregar o guardar producto
 btnAgregar.addEventListener("click", () => {
