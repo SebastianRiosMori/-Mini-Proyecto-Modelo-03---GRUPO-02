@@ -13,7 +13,7 @@
     <form id="formulario">
       <input type="text" id="producto" placeholder="Nombre del producto" required />
       
-      <input type="number" id="cantidad" placeholder="Cantidad" required min="1" step="1" />
+      <input type="number" id="cantidad" placeholder="Cantidad" required min="0.01" step="0.01" />
 
       <select id="tipo">
         <option value="unidades">Unidades</option>
@@ -21,7 +21,7 @@
         <option value="soles">Soles</option>
       </select>
 
-      <button type="submit" id="btnagregar">Agregar</button>
+      <button type="submit">Agregar</button>
     </form>
 
     <ul id="lista"></ul>
@@ -35,7 +35,7 @@
     <div class="modal-contenido">
       <h2>Editar Producto</h2>
       <input type="text" id="editar-producto" />
-      <input type="number" id="editar-cantidad" min="1" step="1" />
+      <input type="number" id="editar-cantidad" min="0.01" step="0.01" />
       <select id="editar-tipo">
         <option value="unidades">Unidades</option>
         <option value="kilos">Kilos</option>
