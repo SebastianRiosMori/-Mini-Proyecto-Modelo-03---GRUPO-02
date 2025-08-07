@@ -126,6 +126,11 @@ btnGuardarCambios.addEventListener("click", () => {
   modal.style.display = "none"; // Cerrar modal
 });
 
+btnCerrarModal.addEventListener("click", () => {
+  modal.style.display = "none";
+  editando = false;
+  indexEditar = null;
+});
 
 // Cargar al inicio
 cargarProductos();
