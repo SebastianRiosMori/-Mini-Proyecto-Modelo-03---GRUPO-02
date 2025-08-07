@@ -136,3 +136,25 @@ button:hover {
 .modal-contenido .modal-buttons button {
   margin-left: 10px;
 }
+
+.item-producto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-producto span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
