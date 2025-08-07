@@ -24,14 +24,14 @@ Sigan o miren nuestro tablero del trello:
 
 🛜Enlace en nuestra pagina web
 ---
-👤
-
+👤 [Visite nuestro sitio web](https://sebastianriosmori.github.io/-Mini-Proyecto-Modelo-03---GRUPO-02/)
+--
 👥Integrantes y perfiles
 ---
 | Rol                                  | Nombre             | GitHub                                                     |
 | ------------------------------------ | ------------------ | ---------------------------------------------------------- |
 | 🧠 Scrum Master                      | Víctor Quispe Curo | [@Victor-master1](https://github.com/Victor-master1)       |
-| 📝 Propietario del producto          | Leonel Contreras   | [@Leonel-Contreras](https://github.com/Leonel-Contreras)   |
+| 📝 Propietario del producto          | Leonel Contreras   | [@ct-Leon](https://github.com/ct-Leon)   |
 | 👨‍💻 Equipo de desarrollo (DEV GIT) | Sebastián Ríos     | [@SebastianRiosMori](https://github.com/SebastianRiosMori) |
 | 💻 Equipo de desarrollo (JS)         | Guillermo Alejo    | [@william-0519](https://github.com/william-0519)           |
 | 🧑‍💻 Equipo de desarrollo (DS)      | Elías Amaya        | [@Elias66-AP](https://github.com/Elias66-AP)               |
