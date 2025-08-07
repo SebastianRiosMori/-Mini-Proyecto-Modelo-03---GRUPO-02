@@ -1,9 +1,9 @@
-const inputProducto = document.getElementById("productoInput");
-const inputTipo = document.getElementById("tipoInput");
-const inputValor = document.getElementById("valorInput");
-const btnAgregar = document.getElementById("agregarBtn");
-const lista = document.getElementById("listaProductos");
-const btnlimpiar = document.getElementById("btnlimpiar");
+const inputProducto = document.getElementById("producto");
+const inputTipo = document.getElementById("tipo");
+const inputValor = document.getElementById("cantidad");
+const btnAgregar = document.getElementById("btnagregar");
+const lista = document.getElementById("lista");
+const btnlimpiar = document.getElementById("vaciar");
 
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
@@ -17,9 +17,9 @@ function cargarProductos() {
     const li = document.createElement("li");
     li.classList.add("item-producto");
     li.innerHTML = `
-      <strong>${producto.nom}</strong><br>
-      Tipo: ${producto.tipo}<br>
-      Valor: ${producto.valor}
+      <span><strong>${producto.nom}</strong></span>
+      <span>Tipo: ${producto.tipo}</span>
+      <span>Valor: ${producto.valor}</span>
       <div class="acciones">
         <button onclick="editarProducto(${index})">Editar</button>
         <button onclick="eliminarProducto(${index})">Borrar</button>
@@ -28,6 +28,7 @@ function cargarProductos() {
     lista.appendChild(li);
   });
 }
+
 
 // Guardar en localStorage
 function guardarLocal() {
@@ -44,16 +45,18 @@ function eliminarProducto(index) {
 // Editar producto
 function editarProducto(index) {
   const prod = productos[index];
-  inputProducto.value = prod.nom;
-  inputTipo.value = prod.tipo;
-  inputValor.value = prod.valor;
-  editando = true;
+  editarProductoInput.value = prod.nom;
+  editarCantidadInput.value = prod.valor;
+  editarTipoInput.value = prod.tipo;
   indexEditar = index;
-  btnAgregar.textContent = "Guardar Cambios";
+
+  modal.style.display = "block"; // Mostrar modal
 }
 
+
 // Agregar o actualizar producto
-btnAgregar.addEventListener("click", () => {
+btnAgregar.addEventListener("click", (e) => {
+  e.preventDefault(); // Prevenir que el formulario se recargue
   const nom = inputProducto.value.trim();
   const tipo = inputTipo.value;
   const valor = inputValor.value.trim();
@@ -83,7 +86,7 @@ btnAgregar.addEventListener("click", () => {
   // Limpiar inputs
   inputProducto.value = "";
   inputValor.value = "";
-  inputTipo.value = "Precio por kilo";
+  inputTipo.value = "unidades";
 });
 
 // Vaciar lista
@@ -94,6 +97,35 @@ btnlimpiar.addEventListener("click", () => {
     cargarProductos();
   }
 });
+
+//Mdal:
+const modal = document.getElementById("modal");
+const editarProductoInput = document.getElementById("editar-producto");
+const editarCantidadInput = document.getElementById("editar-cantidad");
+const editarTipoInput = document.getElementById("editar-tipo");
+const btnGuardarCambios = document.getElementById("guardar-cambios");
+const btnCerrarModal = document.getElementById("cerrar-modal");
+
+btnGuardarCambios.addEventListener("click", () => {
+  const nom = editarProductoInput.value.trim();
+  const valor = editarCantidadInput.value.trim();
+  const tipo = editarTipoInput.value;
+
+  if (nom === "" || valor === "") {
+    return alert("Todos los campos son obligatorios.");
+  }
+
+  productos[indexEditar] = {
+    nom,
+    tipo,
+    valor: parseFloat(valor)
+  };
+
+  guardarLocal();
+  cargarProductos();
+  modal.style.display = "none"; // Cerrar modal
+});
+
 
 // Cargar al inicio
 cargarProductos();
